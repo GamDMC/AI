@@ -96,7 +96,6 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 let collegeData = "";
 let chatHistory = [];
 
-// Load college data safely
 window.addEventListener("load", async () => {
     try {
         const res = await fetch("./collegeData.json");
@@ -151,7 +150,7 @@ async function sendMessage() {
         }
 
         const data = await response.json();
-
+        console.log("EDGE RESPONSE:", data);
         const botReply =
             data.choices?.[0]?.message?.content ||
             data.error ||
