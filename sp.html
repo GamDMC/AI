@@ -1,80 +1,141 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 <title>Davinci Media College Chatbot</title>
-
 <style>
+   
+   * {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     background: #f2f2f2;
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
+/* ✅ Responsive container */
 .chat-container {
-    width: 420px;
+    width: 100%;
+    max-width: 420px;
+    height: 95vh;
     background: white;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+
+    margin: 10px;   /* ✅ adds gap on mobile */
 }
 
+/* ✅ Desktop enhancement */
+@media (min-width: 768px) {
+    .chat-container {
+        max-width: 480px;
+        height: 90vh;
+    }
+}
+
+/* ✅ Header */
 .header {
-    background: #222;
+    background: #111;
     color: white;
-    padding: 15px;
+    padding: 16px;
     text-align: center;
-    border-radius: 10px 10px 0 0;
+    font-weight: bold;
+    font-size: 17px;
+    letter-spacing: 0.3px;
 }
 
+/* ✅ Messages area */
 .messages {
-    height: 400px;
+    flex: 1;
     overflow-y: auto;
-    padding: 15px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #fafafa;
 }
 
+/* ✅ Message bubbles */
 .message {
-    margin-bottom: 12px;
-    padding: 8px 12px;
-    border-radius: 6px;
-    max-width: 75%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    max-width: 80%;
+    font-size: 14px;
+    line-height: 1.45;
+    word-wrap: break-word;
 }
 
+/* user bubble */
 .user {
-    background: #d1e7ff;
+    background: #cfe3ff;
     align-self: flex-end;
-    text-align: right;
+    border-bottom-right-radius: 4px;
 }
 
+/* bot bubble */
 .bot {
-    background: #e9e9e9;
+    background: #eaeaea;
     align-self: flex-start;
+    border-bottom-left-radius: 4px;
 }
 
+/* ✅ Input area */
 .input-area {
     display: flex;
     border-top: 1px solid #ddd;
+    padding: 10px;
+    gap: 8px;
+    background: #fff;
 }
 
+/* ✅ Input */
 input {
     flex: 1;
     padding: 12px;
-    border: none;
+    border: 1px solid #ddd;
+    border-radius: 10px;
     outline: none;
+    font-size: 14px;
 }
 
-button {
-    padding: 12px 15px;
-    border: none;
-    background: #000;
-    color: white;
-    cursor: pointer;
+/* focus effect */
+input:focus {
+    border-color: #999;
 }
-</style>
+
+/* ✅ Button */
+button {
+    padding: 12px 18px;
+    border: none;
+    background: #111;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+button:hover {
+    background: #000;
+}
+
+button:active {
+    transform: scale(0.96);
+}
+    
+
+    </style>
 </head>
 
 <body>
@@ -103,15 +164,28 @@ window.addEventListener("load", async () => {
         collegeData = JSON.stringify(data, null, 2);
 
         chatHistory.push({
-            role: "system",
-            content: `You are the official assistant of Davinci Media College.
+  role: "system",
+  content: `You are the official assistant of Davinci Media College.
 
 Rules:
 - Answer only what is asked.
-- Keep the reply to one sentence.
-- If the requested course is NOT available, politely say it is not offered AND suggest contacting the Chennai or Bengaluru campus for more information.
-- Add contact details if the course is unavailable or provided course duration is unavailable.`
-        });
+- Keep the reply to one or two short sentences.
+- Use ONLY the provided College Data.
+- Be polite and natural in tone.
+
+If a requested course is not offered:
+→ say it is not offered and suggest contacting the Chennai or Bengaluru campus.
+
+If any requested information is missing:
+→ politely say the information is not available AND include the contact numbers below naturally in the sentence.
+
+Contact details:
+Chennai Campus: 044-4858 1335
+Bengaluru Campus: 80737 57707
+
+Do NOT repeat the exact same sentence every time.
+Vary the wording while keeping the meaning clear.`
+});
 
     } catch (err) {
         console.error("Failed to load collegeData.json", err);
