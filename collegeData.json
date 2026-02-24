@@ -1,0 +1,27 @@
+{
+  "info": "Davinci Media College is a practical, industry-oriented training institution focused on Animation, VFX, Game Design and media courses.",
+
+  "courses": [
+    "AI & Digital Cinema",
+    "Game Design",
+    "Game Arts",
+    "Animation",
+    "Visual Effects (VFX)",
+    "Visual Communication",
+    "Movie Color Grading & DI",
+    "Editing",
+    "Film & TV Production",
+    "UI/UX Design"
+  ],
+
+  "campus": {
+    "chennai": {
+      "address": "Devan Towers, Arcot Road, Vadapalani, Chennai",
+      "phone": "044-4858 1335"
+    },
+    "bengaluru": {
+      "address": "#327, 15th Cross, 2nd Block, Jayanagar, Bengaluru",
+      "phone": "80737 57707"
+    }
+  }
+}
