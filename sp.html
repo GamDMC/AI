@@ -90,30 +90,34 @@ button {
 
 <script>
 
+const SUPABASE_URL = "https://lvllgrrpqiqrlvphoimz.supabase.co/functions/v1/chat";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2bGxncnJwcWlxcmx2cGhvaW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5MjU1OTUsImV4cCI6MjA4NzUwMTU5NX0.WaEtoIxmnoOapQt9lEskzsir3EdrzK1A3tURoG2Fnos";
 
 let collegeData = "";
+let chatHistory = [];
 
-async function loadCollegeData() {
-    const res = await fetch("collegeData.json");
-    const data = await res.json();
-    collegeData = JSON.stringify(data, null, 2);
-}
+// Load college data safely
+window.addEventListener("load", async () => {
+    try {
+        const res = await fetch("./collegeData.json");
+        const data = await res.json();
+        collegeData = JSON.stringify(data, null, 2);
 
-loadCollegeData();
-let chatHistory = [
-   {
-  role: "system",
-  content: `You are the official assistant of Davinci Media College.
+        chatHistory.push({
+            role: "system",
+            content: `You are the official assistant of Davinci Media College.
 
 Rules:
 - Answer only what is asked.
 - Keep the reply to one sentence.
 - If the requested course is NOT available, politely say it is not offered AND suggest contacting the Chennai or Bengaluru campus for more information.
-- Add contact details if the course is unavailable or provided cousre duration is unavailable.`
-}
+- Add contact details if the course is unavailable or provided course duration is unavailable.`
+        });
 
-
-];
+    } catch (err) {
+        console.error("Failed to load collegeData.json", err);
+    }
+});
 
 async function sendMessage() {
     const input = document.getElementById("userInput");
@@ -129,33 +133,41 @@ async function sendMessage() {
     });
 
     try {
-    const response = await fetch(
-        "https://lvllgrrpqiqrlvphoimz.supabase.co/functions/v1/chat",
-        {
+        const response = await fetch(SUPABASE_URL, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "apikey": SUPABASE_ANON_KEY,
+                "Authorization": "Bearer " + SUPABASE_ANON_KEY
             },
             body: JSON.stringify({
                 model: "google/gemma-3-12b-it",
                 messages: chatHistory
             })
+        });
+
+        if (!response.ok) {
+            throw new Error("Server error: " + response.status);
         }
-    );
 
-    const data = await response.json();
-    const botReply = data.choices?.[0]?.message?.content || "No response";
+        const data = await response.json();
 
-    addMessage(botReply, "bot");
+        const botReply =
+            data.choices?.[0]?.message?.content ||
+            data.error ||
+            "No response";
 
-    chatHistory.push({
-        role: "assistant",
-        content: botReply
-    });
+        addMessage(botReply, "bot");
 
-} catch (error) {
-    addMessage("Error connecting to server.", "bot");
-}
+        chatHistory.push({
+            role: "assistant",
+            content: botReply
+        });
+
+    } catch (error) {
+        console.error(error);
+        addMessage("Error connecting to server.", "bot");
+    }
 }
 
 function addMessage(text, sender) {
@@ -171,4 +183,3 @@ function addMessage(text, sender) {
 
 </body>
 </html>
-
