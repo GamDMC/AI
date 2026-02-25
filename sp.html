@@ -1,140 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta charset="UTF-8">
-<title>Davinci Media College Chatbot</title>
-<style>
-   
-   * {
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background: #f2f2f2;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-/* ✅ Responsive container */
-.chat-container {
-    width: 100%;
-    max-width: 420px;
-    height: 95vh;
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-
-    margin: 10px;   /* ✅ adds gap on mobile */
-}
-
-/* ✅ Desktop enhancement */
-@media (min-width: 768px) {
-    .chat-container {
-        max-width: 480px;
-        height: 90vh;
-    }
-}
-
-/* ✅ Header */
-.header {
-    background: #111;
-    color: white;
-    padding: 16px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 17px;
-    letter-spacing: 0.3px;
-}
-
-/* ✅ Messages area */
-.messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background: #fafafa;
-}
-
-/* ✅ Message bubbles */
-.message {
-    padding: 10px 14px;
-    border-radius: 14px;
-    max-width: 80%;
-    font-size: 14px;
-    line-height: 1.45;
-    word-wrap: break-word;
-}
-
-/* user bubble */
-.user {
-    background: #cfe3ff;
-    align-self: flex-end;
-    border-bottom-right-radius: 4px;
-}
-
-/* bot bubble */
-.bot {
-    background: #eaeaea;
-    align-self: flex-start;
-    border-bottom-left-radius: 4px;
-}
-
-/* ✅ Input area */
-.input-area {
-    display: flex;
-    border-top: 1px solid #ddd;
-    padding: 10px;
-    gap: 8px;
-    background: #fff;
-}
-
-/* ✅ Input */
-input {
-    flex: 1;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    outline: none;
-    font-size: 14px;
-}
-
-/* focus effect */
-input:focus {
-    border-color: #999;
-}
-
-/* ✅ Button */
-button {
-    padding: 12px 18px;
-    border: none;
-    background: #111;
-    color: white;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-button:hover {
-    background: #000;
-}
-
-button:active {
-    transform: scale(0.96);
-}
-    
-
+    <meta charset="UTF-8">
+    <title>Davinci Media College Chatbot</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f2f2f2;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .chat-container {
+            width: 100%;
+            max-width: 450px;
+            height: 90vh;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            margin: 10px;
+        }
+        .header {
+            background: #111;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: #fdfdfd;
+        }
+        .message {
+            padding: 12px 16px;
+            border-radius: 15px;
+            max-width: 85%;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .user {
+            background: #007bff;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+        .bot {
+            background: #f1f0f0;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
+        .input-area {
+            display: flex;
+            border-top: 1px solid #eee;
+            padding: 15px;
+            gap: 10px;
+            background: #fff;
+        }
+        input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background: #111;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        button:hover { background: #333; }
     </style>
 </head>
 
@@ -144,110 +96,91 @@ button:active {
     <div class="header">Davinci Media College Assistant</div>
     <div class="messages" id="messages"></div>
     <div class="input-area">
-        <input type="text" id="userInput" placeholder="Ask about courses, fees..." />
+        <input type="text" id="userInput" placeholder="Ask about courses, eligibility..." onkeypress="if(event.key==='Enter') sendMessage()" />
         <button onclick="sendMessage()">Send</button>
     </div>
 </div>
 
 <script>
-
+// --- CONFIGURATION ---
 const SUPABASE_URL = "https://lvllgrrpqiqrlvphoimz.supabase.co/functions/v1/chat";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2bGxncnJwcWlxcmx2cGhvaW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5MjU1OTUsImV4cCI6MjA4NzUwMTU5NX0.WaEtoIxmnoOapQt9lEskzsir3EdrzK1A3tURoG2Fnos";
 
-let collegeData = "";
+// This prompt is sent with EVERY message to keep the AI on track
+const SYSTEM_INSTRUCTION = {
+    role: "system",
+    content: `You are the Official Assistant for Davinci Media College.
+
+    STRICT OPERATING RULES:
+    1. ZERO OUTSIDE KNOWLEDGE: You do not know anything about the world, history, or people outside of the "COLLEGE DATA" section below. If a name or fact is NOT in the data, you must say: "I don't have that specific detail."
+    2. NO GUESSING: Never confirm names  anyone else unless they appear in the DATA below.
+    3. TONE: Human and professional. Don't say "I am programmed."
+    4. FEES: Always refer to 97890 59048 (Chennai) or 80737 57707 (Bengaluru).
+    5. Reply in 1 or 2 Lines only.
+    6. CONTEXTUAL ANSWERS: Only mention St. Peter’s University if the user asks about "degree," "recognition," "qualification," or "is it a degree." Do NOT mention it for every question.
+    COLLEGE DATA:
+    - Courses: B.Sc Animation, VFX, Game Design, AI & Digital Cinema, Viscom, UI/UX.
+    - Eligibility: 12th pass (Degree); 10th pass (Diploma).
+    - Training: Studio-based at Digital Magic studio.
+    - Location: Chennai & Bengaluru.`
+};
 let chatHistory = [];
-
-window.addEventListener("load", async () => {
-    try {
-        // You can still fetch the file, but let's format the prompt better
-        const res = await fetch("./collegeData.json");
-        const data = await res.json();
-        
-        // Convert the JSON to a readable string for the AI
-        const dataString = JSON.stringify(data, null, 2);
-
-        chatHistory.push({
-  role: "system",
-  content: `You are the Official Assistant for Davinci Media College.
-
-  STRICT OPERATING RULES:
-  1. CONTEXTUAL ANSWERS: Only mention St. Peter’s University if the user asks about "degree," "recognition," "qualification," or "is it a degree." Do NOT mention it for every question.
-  2. NO FEE TALK: If asked about fees, simply say: "For the latest fee structure and scholarship details, please contact our admissions team at 97890 59048 (Chennai) or 80737 57707 (Bengaluru)."
-  3. BREVITY: Answer in 1 short sentence. Avoid repeating the same "taglines" (like 85% practical) unless relevant to the question.
-  4. NATURAL TONE: Talk like a human assistant, not a brochure. Don't use the phrase "Remember..." or "Keep in mind..." constantly.
-
-  DATA SUMMARY:
-  - B.Sc Courses: Animation, VFX, Game Design, AI & Digital Cinema, Viscom, UI/UX.
-  - Eligibility: 12th pass for Degrees; 10th pass for Degree Path Diploma.
-  - Training: Studio-based at Digital Magic studio.`
-});
-
-    } catch (err) {
-        console.error("Failed to load collegeData.json", err);
-    }
-});
 
 async function sendMessage() {
     const input = document.getElementById("userInput");
-    const message = input.value.trim();
-    if (!message) return;
+    const userText = input.value.trim();
+    if (!userText) return;
 
-    addMessage(message, "user");
+    // 1. Update UI
+    addMessage(userText, "user");
     input.value = "";
 
-// Change this line in your sendMessage function:
-chatHistory.push({
-    role: "user",
-    content: message // No need to attach collegeData here anymore!
-});
+    // 2. Add to chat history
+    chatHistory.push({ role: "user", content: userText });
 
     try {
+        // 3. Prepare payload: System Instruction + History
         const response = await fetch(SUPABASE_URL, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "apikey": SUPABASE_ANON_KEY,
-                "Authorization": "Bearer " + SUPABASE_ANON_KEY
+                "Authorization": `Bearer ${SUPABASE_ANON_KEY}`
             },
             body: JSON.stringify({
                 model: "google/gemma-3-12b-it",
-                messages: chatHistory
+                messages: [SYSTEM_INSTRUCTION, ...chatHistory] // The logic fix is here
             })
         });
 
-        if (!response.ok) {
-            throw new Error("Server error: " + response.status);
-        }
+        if (!response.ok) throw new Error("Connection Error");
 
         const data = await response.json();
-        console.log("EDGE RESPONSE:", data);
-        const botReply =
-            data.choices?.[0]?.message?.content ||
-            data.error ||
-            "No response";
+        const botReply = data.choices?.[0]?.message?.content || "I'm sorry, I'm having trouble connecting.";
 
+        // 4. Update UI & History
         addMessage(botReply, "bot");
+        chatHistory.push({ role: "assistant", content: botReply });
 
-        chatHistory.push({
-            role: "assistant",
-            content: botReply
-        });
+        // 5. Context Window Management: Keep last 6 messages to prevent confusion
+        if (chatHistory.length > 6) {
+            chatHistory = chatHistory.slice(-6);
+        }
 
     } catch (error) {
         console.error(error);
-        addMessage("Error connecting to server.", "bot");
+        addMessage("Technical error. Please try again later.", "bot");
     }
 }
 
 function addMessage(text, sender) {
-    const messages = document.getElementById("messages");
+    const messagesDiv = document.getElementById("messages");
     const div = document.createElement("div");
     div.classList.add("message", sender);
     div.textContent = text;
-    messages.appendChild(div);
-    messages.scrollTop = messages.scrollHeight;
+    messagesDiv.appendChild(div);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
-
 </script>
 
 </body>
