@@ -1,26 +1,46 @@
 {
-  "info": "Davinci Media College is a practical, industry-oriented training institution focused on Animation, VFX, Game Design and media courses.",
-
-  "courses": [
-    "AI & Digital Cinema",
-    "Game Design",
-    "Game Arts",
-    "Animation",
-    "Visual Effects (VFX)",
-    "Visual Communication",
-    "Movie Color Grading & DI",
-    "Editing",
-    "Film & TV Production",
-    "UI/UX Design"
+  "college_name": "Davinci Media College",
+  "university_affiliation": "St. Peter’s Institute of Higher Education and Research (Deemed to be University), Chennai. UGC & AICTE Approved, NAAC A+ Accredited.",
+  "about": "Davinci Media College is a studio-integrated training institution. We offer University-recognized degrees through our partnership with St. Peter's University, combining academic excellence with 85% hands-on studio training.",
+  "key_highlights": [
+    "Degrees awarded by St. Peter’s University (Deemed to be University)",
+    "Training conducted inside 'Digital Magic' - a functional VFX & Animation studio",
+    "First college in India with an exclusive Motion Capture Studio",
+    "AI-Integrated Curriculum for Filmmaking, VFX, and Game Design",
+    "Global standards through partnership with Vanarts, Vancouver",
+    "Placement network including Prime Focus, Reliance Animation, and Technicolor"
   ],
-
-  "campus": {
+  "courses": [
+    {
+      "category": "University Degree Programs (3 Years)",
+      "university": "St. Peter's University",
+      "eligibility": "12th / PUC / NIOS pass",
+      "programs": [
+        "B.Sc Animation",
+        "B.Sc Visual Effects (VFX)",
+        "B.Sc Game Design & Game Art",
+        "B.Sc AI & Digital Cinema",
+        "B.Sc Visual Communication",
+        "B.Sc UI/UX Design"
+      ]
+    },
+    {
+      "category": "Fast-Track / Diploma",
+      "eligibility": "10th Pass (SSLC)",
+      "programs": [
+        "Degree Path Diploma (Start degree training immediately after 10th)",
+        "Diploma in Film & TV Production",
+        "Professional Certificate in Movie Color Grading (DI)"
+      ]
+    }
+  ],
+  "campuses": {
     "chennai": {
-      "address": "Devan Towers, Arcot Road, Vadapalani, Chennai",
-      "phone": "044-4858 1335"
+      "address": "Devan Towers, 304, Arcot Road, Vadapalani, Chennai - 600026",
+      "phone": "044-4858 1335 / 97890 59048"
     },
     "bengaluru": {
-      "address": "#327, 15th Cross, 2nd Block, Jayanagar, Bengaluru",
+      "address": "#327, 2nd Floor, 15th Cross, 2nd Block, Jayanagar, Bengaluru - 560011",
       "phone": "80737 57707"
     }
   }
