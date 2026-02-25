@@ -159,32 +159,27 @@ let chatHistory = [];
 
 window.addEventListener("load", async () => {
     try {
+        // You can still fetch the file, but let's format the prompt better
         const res = await fetch("./collegeData.json");
         const data = await res.json();
-        collegeData = JSON.stringify(data, null, 2);
+        
+        // Convert the JSON to a readable string for the AI
+        const dataString = JSON.stringify(data, null, 2);
 
         chatHistory.push({
   role: "system",
-  content: `You are the official assistant of Davinci Media College.
+  content: `You are the Official Assistant for Davinci Media College.
 
-Rules:
-- Answer only what is asked.
-- Keep the reply to one or two short sentences.
-- Use ONLY the provided College Data.
-- Be polite and natural in tone.
+  STRICT OPERATING RULES:
+  1. CONTEXTUAL ANSWERS: Only mention St. Peter’s University if the user asks about "degree," "recognition," "qualification," or "is it a degree." Do NOT mention it for every question.
+  2. NO FEE TALK: If asked about fees, simply say: "For the latest fee structure and scholarship details, please contact our admissions team at 97890 59048 (Chennai) or 80737 57707 (Bengaluru)."
+  3. BREVITY: Answer in 1 short sentence. Avoid repeating the same "taglines" (like 85% practical) unless relevant to the question.
+  4. NATURAL TONE: Talk like a human assistant, not a brochure. Don't use the phrase "Remember..." or "Keep in mind..." constantly.
 
-If a requested course is not offered:
-→ say it is not offered and suggest contacting the Chennai or Bengaluru campus.
-
-If any requested information is missing:
-→ politely say the information is not available AND include the contact numbers below naturally in the sentence.
-
-Contact details:
-Chennai Campus: 044-4858 1335
-Bengaluru Campus: 80737 57707
-
-Do NOT repeat the exact same sentence every time.
-Vary the wording while keeping the meaning clear.`
+  DATA SUMMARY:
+  - B.Sc Courses: Animation, VFX, Game Design, AI & Digital Cinema, Viscom, UI/UX.
+  - Eligibility: 12th pass for Degrees; 10th pass for Degree Path Diploma.
+  - Training: Studio-based at Digital Magic studio.`
 });
 
     } catch (err) {
@@ -200,10 +195,11 @@ async function sendMessage() {
     addMessage(message, "user");
     input.value = "";
 
-    chatHistory.push({
-        role: "user",
-        content: collegeData + "\n\nUser Question: " + message
-    });
+// Change this line in your sendMessage function:
+chatHistory.push({
+    role: "user",
+    content: message // No need to attach collegeData here anymore!
+});
 
     try {
         const response = await fetch(SUPABASE_URL, {
