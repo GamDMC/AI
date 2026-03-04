@@ -102,6 +102,54 @@
 </div>
 
 <script>
+const COLLEGE_DATA = `
+College Name: Davinci Media College
+
+University Affiliation:
+St. Peter’s Institute of Higher Education and Research (Deemed to be University), Chennai.
+UGC & AICTE Approved. NAAC A+ Accredited.
+St. Peter's website - https://spiher.ac.in/ .
+
+About:
+Studio-integrated training institution.
+85% hands-on studio training.
+University-recognized degrees through St. Peter’s University.
+
+Key Highlights:
+- Degrees awarded by St. Peter’s University
+- Training inside "Digital Magic" studio
+- Exclusive Motion Capture Studio
+- AI-Integrated Curriculum
+- Partnership with Vanarts, Vancouver
+- Placement network: Prime Focus, Reliance Animation, Technicolor
+- Placement is 100 Percentage
+
+Degree Programs (3 Years):
+Eligibility: 12th / PUC / NIOS pass
+- B.Sc Animation
+- B.Sc Visual Effects (VFX)
+- B.Sc Game Design & Game Art
+- B.Sc AI & Digital Cinema
+- B.Sc Visual Communication
+- B.Sc UI/UX Design
+
+Diploma / Fast Track (1 /2 /3 Years):
+Eligibility: 10th Pass (SSLC)
+- Degree Path Diploma
+- Diploma in Film & TV Production
+- Professional Certificate in Movie Color Grading (DI)
+
+Chennai Campus:
+Address: Devan Towers, 304, Arcot Road, Vadapalani, Chennai - 600026
+Phone: 044-4858 1335 / 97890 59048
+
+Bengaluru Campus:
+Address: #327, 2nd Floor, 15th Cross, 2nd Block, Jayanagar, Bengaluru - 560011
+Phone: 80737 57707
+`;
+
+
+
 // --- CONFIGURATION ---
 const SUPABASE_URL = "https://lvllgrrpqiqrlvphoimz.supabase.co/functions/v1/chat";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2bGxncnJwcWlxcmx2cGhvaW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5MjU1OTUsImV4cCI6MjA4NzUwMTU5NX0.WaEtoIxmnoOapQt9lEskzsir3EdrzK1A3tURoG2Fnos";
@@ -119,10 +167,8 @@ const SYSTEM_INSTRUCTION = {
     5. Reply in 1 or 2 Lines only.
     6. CONTEXTUAL ANSWERS: Only mention St. Peter’s University if the user asks about "degree," "recognition," "qualification," or "is it a degree." Do NOT mention it for every question.
     COLLEGE DATA:
-    - Courses: B.Sc Animation, VFX, Game Design, AI & Digital Cinema, Viscom, UI/UX.
-    - Eligibility: 12th pass (Degree); 10th pass (Diploma).
-    - Training: Studio-based at Digital Magic studio.
-    - Location: Chennai & Bengaluru.`
+       ${COLLEGE_DATA}.`
+
 };
 let chatHistory = [];
 
