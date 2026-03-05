@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
-    <title>Davinci Media College Chatbot</title>
+    <title>Daisa</title>
     <style>
         * { box-sizing: border-box; }
         body {
@@ -93,7 +93,7 @@
 <body>
 
 <div class="chat-container">
-    <div class="header">Davinci Media College Assistant</div>
+    <div class="header">Daisa</div>
     <div class="messages" id="messages"></div>
     <div class="input-area">
         <input type="text" id="userInput" placeholder="Ask about courses, eligibility..." onkeypress="if(event.key==='Enter') sendMessage()" />
@@ -105,7 +105,7 @@
 const COLLEGE_DATA = `
 College Name: Davinci Media College
 
-University Affiliation:
+University Collaborated :
 St. Peter’s Institute of Higher Education and Research (Deemed to be University), Chennai.
 UGC & AICTE Approved. NAAC A+ Accredited.
 St. Peter's website - https://spiher.ac.in/ .
@@ -157,13 +157,13 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 // This prompt is sent with EVERY message to keep the AI on track
 const SYSTEM_INSTRUCTION = {
     role: "system",
-    content: `You are the Official Assistant for Davinci Media College.
+    content: `You are Daisa, the Official Assistant for Davinci Media College.
 
     STRICT OPERATING RULES:
     1. ZERO OUTSIDE KNOWLEDGE: You do not know anything about the world, history, or people outside of the "COLLEGE DATA" section below. If a name or fact is NOT in the data, you must say: "I don't have that specific detail."
     2. NO GUESSING: Never confirm names  anyone else unless they appear in the DATA below.
     3. TONE: Human and professional. Don't say "I am programmed."
-    4. FEES: Always refer to 97890 59048 (Chennai) or 80737 57707 (Bengaluru).
+    4. FEES: Always contact to 97890 59048 (Chennai) or 80737 57707 (Bengaluru).
     5. Reply in 1 or 2 Lines only.
     6. CONTEXTUAL ANSWERS: Only mention St. Peter’s University if the user asks about "degree," "recognition," "qualification," or "is it a degree." Do NOT mention it for every question.
     COLLEGE DATA:
