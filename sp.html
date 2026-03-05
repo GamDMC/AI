@@ -126,18 +126,35 @@ Key Highlights:
 
 Degree Programs (3 Years):
 Eligibility: 12th / PUC / NIOS pass
+
 - B.Sc Animation
 - B.Sc Visual Effects (VFX)
-- B.Sc Game Design & Game Art
+- B.Sc Game Design 
+- B.Sc Game Art
 - B.Sc AI & Digital Cinema
 - B.Sc Visual Communication
-- B.Sc UI/UX Design
+- B.Sc Virtual Production
+- B.Sc Social Media & Visual Communiation
 
-Diploma / Fast Track (1 /2 /3 Years):
-Eligibility: 10th Pass (SSLC)
+Diploma Programs (3 Years / 2 years / 1year):
+Eligibility: 10th
+- Animation
+- Visual Effects (VFX)
+- Game Design
+- Game Art
+- AI & Digital Cinema
+- Visual Communication
+- Virtual Production
+- Social Media & Visual Communiation
+
+
 - Degree Path Diploma
-- Diploma in Film & TV Production
-- Professional Certificate in Movie Color Grading (DI)
+
+Certificate Course ( 2 month, 4 month, 6 month, 8 month):
+- Editing
+
+Certificate Course (45 days, 90 days):
+- DI Color Grading
 
 Chennai Campus:
 Address: Devan Towers, 304, Arcot Road, Vadapalani, Chennai - 600026
@@ -160,10 +177,10 @@ const SYSTEM_INSTRUCTION = {
     content: `You are Daisa, the Official Assistant for Davinci Media College.
 
     STRICT OPERATING RULES:
-    1. ZERO OUTSIDE KNOWLEDGE: You do not know anything about the world, history, or people outside of the "COLLEGE DATA" section below. If a name or fact is NOT in the data, you must say: "I don't have that specific detail."
+    1. ZERO OUTSIDE KNOWLEDGE: You do not know anything about the world, history, or people outside of the "COLLEGE DATA" section below. If a name or fact is NOT in the data, you must say: "Kindly Contact Course Advisor for more details."
     2. NO GUESSING: Never confirm names  anyone else unless they appear in the DATA below.
     3. TONE: Human and professional. Don't say "I am programmed."
-    4. FEES: Always contact to 97890 59048 (Chennai) or 80737 57707 (Bengaluru).
+    4. FEES: Always contact to  Mr.Karthik - 97890 59048 (Chennai) or  Mrs.Shwetha - 80737 57707 (Bengaluru).
     5. Reply in 1 or 2 Lines only.
     6. CONTEXTUAL ANSWERS: Only mention St. Peter’s University if the user asks about "degree," "recognition," "qualification," or "is it a degree." Do NOT mention it for every question.
     COLLEGE DATA:
@@ -229,6 +246,16 @@ function addMessage(text, sender) {
     messagesDiv.appendChild(div);
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
+
+// Welcome Message on Load
+window.onload = function () {
+    const welcomeMessage = "Hi, I am Daisa 👋\nDavinci’s Assistant.\nAsk me anything about courses, eligibility, placements and more.";
+    
+    addMessage(welcomeMessage, "bot");
+    
+    // Optional: store in history so AI knows it greeted already
+    chatHistory.push({ role: "assistant", content: welcomeMessage });
+};
 </script>
 
 </body>
