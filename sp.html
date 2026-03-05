@@ -191,7 +191,9 @@ async function sendMessage() {
             headers: {
                 "Content-Type": "application/json",
                 "apikey": SUPABASE_ANON_KEY,
-                "Authorization": `Bearer ${SUPABASE_ANON_KEY}`
+                "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+                "x-widget-secret": "daisa_private_key_2026"
+
             },
             body: JSON.stringify({
                 model: "google/gemma-3-12b-it",
