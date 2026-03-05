@@ -1,6 +1,6 @@
 (function () {
 
-    const CHAT_URL = "https://gamdmc.github.io/AI/sp";
+    const CHAT_URL = "http://127.0.0.1:5500/spfine%20copy.html";
     const isMobile = window.innerWidth < 480;
 
     /* Floating Button */
