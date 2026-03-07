@@ -3,24 +3,60 @@
     const CHAT_URL = "https://gamdmc.github.io/AI/sp";
     const isMobile = window.innerWidth < 480;
 
+ 
     /* Floating Button */
     const button = document.createElement("div");
-    button.innerHTML = "💬";
+    button.title = "Chat with Daisa";
+    button.innerHTML = `
+    <div style="position:relative;width:100%;height:100%;">
+        <img src="daisaa.png" style="width:100%;height:100%;border-radius:50%;">
+        
+        <div style="
+            position:absolute;
+            bottom:2px;
+            right:2px;
+            background:#007bff;
+            color:#fff;
+            width:18px;
+            height:18px;
+            border-radius:50%;
+            font-size:11px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            border:2px solid white;
+        ">
+            💬
+        </div>
+    </div>
+    `;  
+    const bubble = document.createElement("div");
+bubble.innerText = "Hi there 👋 Ask me anything!";
+Object.assign(bubble.style,{
+    position:"fixed",
+    bottom:"90px",
+    right:"20px",
+    background:"#111",
+    color:"#fff",
+    padding:"8px 12px",
+    borderRadius:"12px",
+    fontSize:"13px",
+    boxShadow:"0 4px 12px rgba(0,0,0,0.25)",
+    zIndex:"99999",
+    maxWidth:"160px"
+});
+
+document.body.appendChild(bubble);
     Object.assign(button.style, {
         position: "fixed",
         bottom: "20px",
         right: "20px",
         width: "60px",
         height: "60px",
-        background: "#111",
-        color: "#fff",
         borderRadius: "50%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        fontSize: "24px",
         cursor: "pointer",
-        boxShadow: "0 5px 20px rgba(0,0,0,0.3)",
+        boxShadow: "0 6px 20px rgba(0,0,0,0.3)",
+        overflow: "hidden",
         zIndex: "99999"
     });
 
