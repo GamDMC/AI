@@ -35,6 +35,13 @@
             font-weight: bold;
             font-size: 18px;
         }
+        .bot-avatar{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    vertical-align:middle;
+    margin-right:8px;
+}
         .messages {
             flex: 1;
             overflow-y: auto;
@@ -50,6 +57,14 @@
             max-width: 85%;
             font-size: 14px;
             line-height: 1.5;
+        }
+        .message ul{
+    margin:8px 0;
+    padding-left:20px;
+        }
+
+        .message li{
+            margin-bottom:4px;
         }
         .user {
             background: #007bff;
@@ -87,13 +102,17 @@
             font-weight: 600;
         }
         button:hover { background: #333; }
+        
     </style>
 </head>
 
 <body>
 
 <div class="chat-container">
-    <div class="header">Daisa</div>
+    <div class="header">
+        <img src="daisaa.png" class="bot-avatar">
+        Daisa
+    </div>
     <div class="messages" id="messages"></div>
     <div class="input-area">
         <input type="text" id="userInput" placeholder="Ask about courses, eligibility..." onkeypress="if(event.key==='Enter') sendMessage()" />
@@ -158,11 +177,29 @@ Certificate Course (45 days, 90 days):
 
 Chennai Campus:
 Address: Devan Towers, 304, Arcot Road, Vadapalani, Chennai - 600026
-Phone: 044-4858 1335 / 97890 59048
+Phone: 97890 59048
 
 Bengaluru Campus:
 Address: #327, 2nd Floor, 15th Cross, 2nd Block, Jayanagar, Bengaluru - 560011
 Phone: 80737 57707
+
+Official Videos:
+
+College Highlights Video:
+https://www.youtube.com/watch?v=dVcL1rWVdBE
+
+Demo Reel:
+https://www.youtube.com/watch?v=SXUz-BBP3DI
+
+About our Founder
+With 33 years of experience in the visual media sector, M.Arul Moorthy is one of the pioneers of change in the media industry in India. During this long journey, he has held various positions in the industry.
+•  He has seved as VFX supevisor for 360 feature films from various languages.
+•  Worked as editor for 3500 ad films for some of the top clients across India.
+•  Introduced and evangelised Digital Cinema in India.
+•  Produced India’s first Digitally Movie and released the movie “Mutham” in the year 2002.
+•  Created animation and VFX for India’s first 3D Stereoscopic movie “MY DEAR KUTTICHATHAN”.
+•  Created and Patented Real Time Animation System “VIRTUAL CHARACTER RESPONSE SYSTEM”.
+•  Created GamesCercise Platform for Gamification of Excercise using VR and AR technologies
 `;
 
 
@@ -180,9 +217,10 @@ const SYSTEM_INSTRUCTION = {
     1. ZERO OUTSIDE KNOWLEDGE: You do not know anything about the world, history, or people outside of the "COLLEGE DATA" section below. If a name or fact is NOT in the data, you must say: "Kindly Contact Course Advisor for more details."
     2. NO GUESSING: Never confirm names  anyone else unless they appear in the DATA below.
     3. TONE: Human and professional. Don't say "I am programmed."
-    4. FEES: Always contact to  Mr.Karthik - 97890 59048 (Chennai) or  Mrs.Shwetha - 80737 57707 (Bengaluru).
-    5. Reply in 1 or 2 Lines only.
-    6. CONTEXTUAL ANSWERS: Only mention St. Peter’s University if the user asks about "degree," "recognition," "qualification," or "is it a degree." Do NOT mention it for every question.
+    4. FEES DETAILS: Always contact to  Mr.Karthik - 97890 59048 (Chennai) or  Mrs.Shwetha - 80737 57707 (Bengaluru).
+    5. Keep answers short. Use bullet points if listing courses.
+    6. If users ask for videos, campus tour, student work, student projects, showreel, testimonials, or placement videos, provide the relevant YouTube link from the COLLEGE DATA.
+    7. CONTEXTUAL ANSWERS: Only mention St. Peter’s University if the user asks about "degree," "recognition," "qualification," or "is it a degree." Do NOT mention it for every question.
     COLLEGE DATA:
        ${COLLEGE_DATA}.`
 
@@ -242,7 +280,28 @@ function addMessage(text, sender) {
     const messagesDiv = document.getElementById("messages");
     const div = document.createElement("div");
     div.classList.add("message", sender);
-    div.textContent = text;
+
+    // Convert **bold**
+    text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+    // Convert * bullet list
+    text = text.replace(/^\* (.*)$/gm, "<li>$1</li>");
+    text = text.replace(/(<li>.*<\/li>)/gs, "<ul>$1</ul>");
+
+    // Convert phone numbers to clickable
+    text = text.replace(
+        /(\+?\d[\d\s]{7,}\d)/g,
+        '<a href="tel:$1" style="color:inherit;text-decoration:underline;">$1</a>'
+    );
+
+    // Convert line breaks
+    text = text.replace(/\n/g, "");
+    text = text.replace(
+ /(https?:\/\/[^\s]+)/g,
+ '<a href="$1" target="_blank" style="color:#ff0000;font-weight:bold;">▶ Watch Video</a>'
+);
+    div.innerHTML = text;
+
     messagesDiv.appendChild(div);
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
