@@ -9,7 +9,7 @@
     button.title = "Chat with Daisa";
     button.innerHTML = `
     <div style="position:relative;width:100%;height:100%;">
-        <img src="daisaa.png" style="width:100%;height:100%;border-radius:50%;">
+        <img src="https://gamdmc.github.io/AI/Daisa.png" style="width:100%;height:100%;border-radius:50%;">
         
         <div style="
             position:absolute;
