@@ -36,8 +36,8 @@
             font-size: 18px;
         }
         .bot-avatar{
-    width:30px;
-    height:30px;
+    width: 50px;;
+    height:50px;
     border-radius:50%;
     vertical-align:middle;
     margin-right:8px;
@@ -58,14 +58,17 @@
             font-size: 14px;
             line-height: 1.5;
         }
-        .message ul{
-    margin:8px 0;
-    padding-left:20px;
-        }
+        .message{
+    line-height:1.5;
+}
+.message ul{
+    margin:6px 0;
+    padding-left:18px;
+}
 
-        .message li{
-            margin-bottom:4px;
-        }
+.message li{
+    margin:4px 0;
+}
         .user {
             background: #007bff;
             color: white;
@@ -175,13 +178,16 @@ Certificate Course ( 2 month, 4 month, 6 month, 8 month):
 Certificate Course (45 days, 90 days):
 - DI Color Grading
 
+Chennai and Bengaluru Campus Location Details:
 Chennai Campus:
-Address: Devan Towers, 304, Arcot Road, Vadapalani, Chennai - 600026
-Phone: 97890 59048
+  Address: Devan Towers, 304, Arcot Road, Vadapalani, Chennai - 600026
+  Phone: 97890 59048
+  Map Link: https://maps.app.goo.gl/dc3pA7B4tAKqx7Bm8
 
 Bengaluru Campus:
-Address: #327, 2nd Floor, 15th Cross, 2nd Block, Jayanagar, Bengaluru - 560011
-Phone: 80737 57707
+  Address: #327, 2nd Floor, 15th Cross, 2nd Block, Jayanagar, Bengaluru - 560011
+  Phone: 80737 57707
+  Map Link: https://maps.app.goo.gl/UArw1KFUycbubQcZA
 
 Official Videos:
 
@@ -286,7 +292,9 @@ function addMessage(text, sender) {
 
     // Convert * bullet list
     text = text.replace(/^\* (.*)$/gm, "<li>$1</li>");
-    text = text.replace(/(<li>.*<\/li>)/gs, "<ul>$1</ul>");
+if(text.includes("<li>")){
+    text = "<ul>" + text + "</ul>";
+}
 
     // Convert phone numbers to clickable
     text = text.replace(
@@ -294,12 +302,19 @@ function addMessage(text, sender) {
         '<a href="tel:$1" style="color:inherit;text-decoration:underline;">$1</a>'
     );
 
-    // Convert line breaks
-    text = text.replace(/\n/g, "");
-    text = text.replace(
- /(https?:\/\/[^\s]+)/g,
- '<a href="$1" target="_blank" style="color:#ff0000;font-weight:bold;">▶ Watch Video</a>'
-);
+    text = text.replace(/(https?:\/\/[^\s]+)/g, function(url){
+
+if(url.includes("youtube.com") || url.includes("youtu.be")){
+    return '<a href="'+url+'" target="_blank">▶ Watch Video</a>';
+}
+
+if(url.includes("maps.app") || url.includes("google.com/maps")){
+    return '<a href="'+url+'" target="_blank">Open Map</a>';
+}
+
+return '<a href="'+url+'" target="_blank">'+url+'</a>';
+});
+text = text.replace(/\n\n/g, "<br>");
     div.innerHTML = text;
 
     messagesDiv.appendChild(div);
@@ -319,4 +334,3 @@ window.onload = function () {
 
 </body>
 </html>
-
