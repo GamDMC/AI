@@ -281,44 +281,53 @@ async function sendMessage() {
         addMessage("Technical error. Please try again later.", "bot");
     }
 }
-
 function addMessage(text, sender) {
-    const messagesDiv = document.getElementById("messages");
-    const div = document.createElement("div");
-    div.classList.add("message", sender);
 
-    // Convert **bold**
-    text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+const messagesDiv = document.getElementById("messages");
+const div = document.createElement("div");
+div.classList.add("message", sender);
 
-    // Convert * bullet list
-    text = text.replace(/^\* (.*)$/gm, "<li>$1</li>");
-if(text.includes("<li>")){
+// Bold
+text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+// Remove markdown links [text](url)
+text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, "$2");
+
+// Bullet list
+text = text.replace(/^\* (.*)$/gm, "<li>$1</li>");
+if (text.includes("<li>")) {
     text = "<ul>" + text + "</ul>";
 }
 
-    // Convert phone numbers to clickable
-    text = text.replace(
-        /(\+?\d[\d\s]{7,}\d)/g,
-        '<a href="tel:$1" style="color:inherit;text-decoration:underline;">$1</a>'
-    );
+// Phone numbers
+text = text.replace(
+    /(\+?\d[\d\s]{7,}\d)/g,
+    '<a href="tel:$1" style="color:inherit;text-decoration:underline;">$1</a>'
+);
 
-    text = text.replace(/(https?:\/\/[^\s]+)/g, function(url){
+// FIXED URL detection (stops before HTML tags)
+text = text.replace(/https?:\/\/[^\s<]+/g, function(url){
 
-if(url.includes("youtube.com") || url.includes("youtu.be")){
-    return '<a href="'+url+'" target="_blank">▶ Watch Video</a>';
-}
+    url = url.replace(/[)\]]$/, "");
 
-if(url.includes("maps.app") || url.includes("google.com/maps")){
-    return '<a href="'+url+'" target="_blank">Open Map</a>';
-}
+    if(url.includes("youtube.com") || url.includes("youtu.be")){
+        return '<a href="'+url+'" target="_blank">▶ Watch Video</a>';
+    }
 
-return '<a href="'+url+'" target="_blank">'+url+'</a>';
+    if(url.includes("maps.app") || url.includes("google.com/maps")){
+        return '<a href="'+url+'" target="_blank">Open Map</a>';
+    }
+
+    return '<a href="'+url+'" target="_blank">'+url+'</a>';
 });
-text = text.replace(/\n\n/g, "<br>");
-    div.innerHTML = text;
 
-    messagesDiv.appendChild(div);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+// Line breaks
+text = text.replace(/\n\n/g, "<br>");
+
+div.innerHTML = text;
+
+messagesDiv.appendChild(div);
+messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 
 // Welcome Message on Load
